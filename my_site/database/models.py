@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .db import Base
 
 
-class Status_Choices(str, Enum):
+class Status_Choices(str, PyEnum):
     gold = 'gold'
     silver = 'silver'
     bronze = 'bronze'
@@ -24,7 +24,7 @@ class UserProfile(Base):
     password: Mapped[str] = mapped_column(String)
     age: Mapped[int] = mapped_column(Integer, nullable=True)
     phone_number: Mapped[str] = mapped_column(String)
-    status: Mapped[Status_Choices] = mapped_column(PyEnum(Status_Choices), default=Status_Choices.simple)
+    status: Mapped[Status_Choices] = mapped_column(Enum(Status_Choices), default=Status_Choices.simple)
     date_register: Mapped[date] = mapped_column(Date, default=date.today())
 
     user_review: Mapped[List['Review']] = relationship(back_populates='user',cascade='all, delete-orphan')
